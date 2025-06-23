@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtFlow - Conectando Arte e Produção</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/swipe-module.css">
+    <link rel="stylesheet" href="assets/css/filter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <button class="hamburger-menu" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="logo art-nouveau-text">ArtFlow</h1>
+            <nav class="nav-icons" id="headerNav">
+                <ul>
+                    <li class="nav-item-compras" id="navCreateServiceLink" style="display:none;">
+                        <a href="create-service.html" aria-label="Criar Serviço">
+                            <i class="fas fa-plus-circle"></i> <span class="icon-label">Criar Serviço</span>
+                        </a>
+                    </li>
+                    <li class="nav-item-inicio">
+                        <a href="index.html" aria-label="Página Inicial">
+                            <i class="fas fa-home"></i>
+                            <span class="icon-label">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-item-quickfinder" id="toggleSwipeModule">
+                        <a href="#" aria-label="Quickfinder">
+                            <i class="fas fa-bolt"></i>
+                            <span class="icon-label">Quickfinder</span>
+                        </a>
+                    </li>
+                    <li class="nav-item-saved" id="navSavedLink" style="display:none;">
+                        <a href="saved-profiles.html" aria-label="Perfis Salvos">
+                            <i class="fas fa-bookmark"></i>
+                            <span class="icon-label">Salvos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item-login" id="navLoginLink">
+                        <a href="login.html" aria-label="Login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span class="icon-label">Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item-logout" id="navLogoutLink" style="display:none;">
+                        <a href="#" aria-label="Sair">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="icon-label">Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="profile-icon" id="headerProfile">
+                <a href="#" aria-label="Meu Perfil" id="profileIconLink">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="icon-label" id="profileLabel">Perfil</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div id="customNotification" class="custom-notification"></div> 
+            
+            <section class="filter-search-section">
+                <h2 class="art-nouveau-text">Encontre a sua inspiração!</h2>
+                <div class="filter-area art-nouveau-card">
+                    <p>Mergulhe em um universo de possibilidades. Encontre artistas e produtores com fluidez e beleza.</p>
+                    
+                    <div class="filter-group">
+                        <input type="text" id="keyword-filter" placeholder="Pesquisar obras e talentos..." class="art-nouveau-input">
+                    </div>
+
+                    <div class="filter-group price-filter-group">
+                        <label>Preço:</label>
+                        <div class="price-range-display">
+                            <span id="min-value">R$ 0</span> - <span id="max-value">R$ 500</span>
+                        </div>
+                        <input type="range" id="min-price" min="0" max="1000" value="0" class="price-range-input">
+                        <input type="range" id="max-price" min="0" max="1000" value="500" class="price-range-input">
+                    </div>
+
+                    <div class="filter-group tags-filter-group">
+                        <label>Categorias e Subcategorias:</label>
+                        <div id="tags-filter">
+                            </div>
+                    </div>
+                    
+                    <button class="art-nouveau-button" id="apply-filters-button">Buscar Harmonia</button>
+                </div>
+
+                <div class="results-container-wrapper">
+                    <h3 class="art-nouveau-text">Resultados da Busca</h3>
+                    <div class="announcement-grid" id="results-container">
+                        </div>
+                </div>
+            </section>
+
+            <section class="announcement-section">
+                <h2 class="art-nouveau-text">Obras Recentes em Destaque</h2>
+                <div class="announcement-grid" id="announcement-container">
+                    <p>Carregando anúncios...</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="art-nouveau-text">&copy; 2025 ArtFlow - Onde a arte encontra seu fluxo.</p>
+        </div>
+    </footer>
+
+    <div class="swipe-module-overlay" id="swipeOverlay"></div>
+    <aside class="swipe-module-sidebar" id="swipeModuleSidebar">
+        <button class="close-swipe-module" id="closeSwipeModule">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="profile-container" id="perfil">
+            <div class="profile-image"></div>
+            <div class="profile-info">
+                <p><strong>Nome</strong>, idade anos | Nota: nota</p>
+                <button onclick="verPreviewPortfolio()" class="art-nouveau-button swipe-portfolio-button">
+                    👁️ Ver Portfolio
+                </button>
+                <div id="portfolio-preview" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display: none;"></div>
+            </div>
+
+            <div class="profile-buttons">
+                <img src="assets/img/botoes/cruz.png" alt="Fechar" onclick="dislike()">
+                <img id="superLikeBtn" src="assets/img/botoes/estrela.png" alt="Estrela" onclick="superLike()">
+                <img src="assets/img/botoes/raio.png" alt="Relâmpago" onclick="boost()">
+                <img src="assets/img/botoes/verificar.png" alt="check" onclick="like()">
+            </div>
+
+            <div class="footer-buttons">
+                <img src="assets/img/botoes/baloes-de-fala.png" alt="Mensagem" onclick="enviarMensagem()">
+                <img src="assets/img/botoes/atualizar.png" alt="Atualizar" onclick="atualizarPerfil()">
+            </div>
+        </div>
+    </aside>
+
+    <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script type="module" src="assets/swipe-module/perfis.js"></script>
+    <script type="module" src="assets/swipe-module/app.js"></script>
+    <script type="module" src="assets/js/filter.js"></script>
+    <script type="module" src="assets/js/utils.js"></script>
+    <script type="module" src="assets/js/comments.js"></script>
+
+
+    <script type="module">
+        import { isAuthenticated, logoutUser, getCurrentUsername, getUserType } from './assets/js/auth.js';
+        import { carregarPerfilInicial } from './assets/swipe-module/app.js';
+        import { showNotification } from './assets/js/utils.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLoginLink = document.getElementById('navLoginLink');
+            const navLogoutLink = document.getElementById('navLogoutLink');
+            const navSavedLink = document.getElementById('navSavedLink');
+            const navCreateServiceLink = document.getElementById('navCreateServiceLink'); 
+            const profileLabel = document.getElementById('profileLabel');
+            const profileIconLink = document.getElementById('profileIconLink');
+            const currentUserType = getUserType(); 
+
+            console.log('isAuthenticated() na inicialização:', isAuthenticated());
+
+            if (isAuthenticated()) {
+                navLoginLink.style.display = 'none';
+                navLogoutLink.style.display = 'list-item';
+                navSavedLink.style.display = 'list-item';
+               
+                if (currentUserType === 'artflow') {
+                    navCreateServiceLink.style.display = 'list-item';
+                } else {
+                    navCreateServiceLink.style.display = 'none';
+                }
+
+                const username = getCurrentUsername();
+                if (username) {
+                    profileLabel.textContent = `${username} (${currentUserType.charAt(0).toUpperCase() + currentUserType.slice(1)})`;
+                } else {
+                    profileLabel.textContent = 'Perfil';
+                }
+                profileIconLink.href = "#";
+
+            } else {
+                navLoginLink.style.display = 'list-item';
+                navLogoutLink.style.display = 'none';
+                navSavedLink.style.display = 'none';
+                navCreateServiceLink.style.display = 'none'; 
+                profileLabel.textContent = 'Perfil';
+                profileIconLink.href = "login.html";
+            }
+
+            navLogoutLink.querySelector('a').addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutUser();
+                window.location.href = 'login.html';
+            });
+
+            const toggleSwipeModuleBtn = document.getElementById('toggleSwipeModule');
+            const swipeModuleSidebar = document.getElementById('swipeModuleSidebar');
+            const swipeOverlay = document.getElementById('swipeOverlay');
+            const closeSwipeModuleBtn = document.getElementById('closeSwipeModule');
+
+            if (toggleSwipeModuleBtn) {
+                console.log('Botão Quickfinder encontrado:', toggleSwipeModuleBtn);
+                toggleSwipeModuleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Botão Quickfinder clicado! Abrindo sidebar...');
+                    swipeModuleSidebar.classList.add('is-open');
+                    swipeOverlay.classList.add('is-visible');
+                    document.body.style.overflow = 'hidden';
+                    carregarPerfilInicial();
+                });
+            } else {
+                console.error('ERRO: Botão Quickfinder (ID "toggleSwipeModule") não encontrado no DOM.');
+            }
+
+            if (closeSwipeModuleBtn) {
+                closeSwipeModuleBtn.addEventListener('click', () => {
+                    console.log('Botão Fechar Sidebar clicado! Fechando sidebar...');
+                    swipeModuleSidebar.classList.remove('is-open');
+                    swipeOverlay.classList.remove('is-visible');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            if (swipeOverlay) {
+                swipeOverlay.addEventListener('click', () => {
+                    console.log('Overlay clicado! Fechando sidebar...');
+                    swipeModuleSidebar.classList.remove('is-open');
+                    swipeOverlay.classList.remove('is-visible');
+                    document.body.style.overflow = '';
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
